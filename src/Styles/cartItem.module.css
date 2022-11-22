@@ -1,0 +1,47 @@
+.cartItem {
+  display: flex;
+  gap: 5px;
+}
+@media (min-width: 768px){
+  .cartItem{
+    width:300px
+  }
+}
+.imageContainer {
+  border-radius: 10px;
+  width: 100px;
+}
+.image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.topHalf,
+.bottomHalf {
+  display: flex;
+  justify-content: space-between;
+}
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1 1 auto;
+}
+.removeIcon {
+  color: orange;
+  cursor: pointer;
+}
+.cartItem p {
+  margin-bottom: 0rem;
+}
+
+.btn {
+  position: absolute;
+  left: 100px;
+  top: 13px;
+  background: transparent;
+  color: white;
+  width: 100px;
+  border: 1px solid white;
+  border-radius: 20px;
+}
