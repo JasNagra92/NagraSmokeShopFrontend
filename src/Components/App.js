@@ -26,6 +26,7 @@ function App() {
   useEffect(() => {
     const getMenuItems = async () => {
       const data = await axios.get("/api/menu");
+      console.log(data)
       const menuArray = data.data.items;
       const menu = menuArray.map((menuItem) => {
         return { ...menuItem, quantity: 1 };
