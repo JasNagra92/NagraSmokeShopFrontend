@@ -3,7 +3,6 @@ import { CartContext } from "./CartContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Puff } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import Modal from "./Modal";
 import axios from "axios";
 import brisket from "../Images/brisket.jpg";
 import pork from "../Images/Pork-Butt.jpg";
@@ -17,7 +16,6 @@ axios.defaults.baseURL =
 
 const Menu = ({ menuItems }) => {
   const [cart, setCart] = useContext(CartContext);
-  const [openModal, setOpenModal] = useState(false);
   const { user } = useAuthContext();
 
   const itemAdded = () => {
@@ -85,16 +83,8 @@ const Menu = ({ menuItems }) => {
               item={menuItems[1]}
               onChange={onChangeInput}
             />
-            {/* <MenuItem
-             image={chicken}
-             addItem={handleClick}
-             item={menuItems[2]}
-             /> */}
             <SeasoningsTable />
           </div>
-          {openModal ? (
-            <Modal closeModal={() => setOpenModal(!openModal)} />
-          ) : null}
         </div>
       ) : (
         <Puff

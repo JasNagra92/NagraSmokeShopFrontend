@@ -7,9 +7,7 @@ import { AuthContextProvider } from "./authContext";
 import DarkNavbar from "./DarkNavbar";
 import "../Styles/App.css";
 import "react-toastify/dist/ReactToastify.css";
-
 import { Routes, Route } from "react-router-dom";
-
 import Menu from "./Menu";
 import Home from "./Home";
 import Cart from "./Cart";
@@ -21,9 +19,9 @@ import Location from "./Location";
 import MyAccount from "./MyAccount";
 
 function App() {
-  const [menuItems,setMenuItems] = useState(null)
+  const [menuItems, setMenuItems] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     const getMenuItems = async () => {
       const data = await axios.get("/api/menu");
       const menuArray = data.data.items;
@@ -34,7 +32,7 @@ function App() {
       setMenuItems(menu);
     };
     getMenuItems();
-  }, [])
+  }, []);
 
   return (
     <BrowserRouter>
