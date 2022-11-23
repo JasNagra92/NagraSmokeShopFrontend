@@ -17,6 +17,8 @@ import Signup from "./Signup";
 import Login from "./Login";
 import Location from "./Location";
 import MyAccount from "./MyAccount";
+axios.defaults.baseURL =
+  process.env.REACT_APP_baseURL || "http://localhost:4000";
 
 function App() {
   const [menuItems, setMenuItems] = useState(null);

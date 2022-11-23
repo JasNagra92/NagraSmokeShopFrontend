@@ -1,9 +1,8 @@
-import React, { useState, useContext} from "react";
+import React, { useContext} from "react";
 import { CartContext } from "./CartContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Puff } from "react-loader-spinner";
 import { toast } from "react-toastify";
-import axios from "axios";
 import brisket from "../Images/brisket.jpg";
 import pork from "../Images/Pork-Butt.jpg";
 import smPork from '../Images/Pork-Butt-small.jpg'
@@ -11,8 +10,6 @@ import smBrisket from '../Images/brisket-small.jpeg'
 import styles from "../Styles/Menu.module.css";
 import MenuItem from "./MenuItem";
 import SeasoningsTable from "./SeasoningsTable";
-axios.defaults.baseURL =
-  process.env.REACT_APP_baseURL || "http://localhost:4000";
 
 const Menu = ({ menuItems }) => {
   const [cart, setCart] = useContext(CartContext);
