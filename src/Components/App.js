@@ -24,13 +24,35 @@ function App() {
   const [menuItems, setMenuItems] = useState(null);
 
   useEffect(() => {
+    let menu;
     const getMenuItems = async () => {
-      const data = await axios.get("/api/menu");
-      console.log(data)
-      const menuArray = data.data.items;
-      const menu = menuArray.map((menuItem) => {
-        return { ...menuItem, quantity: 1 };
-      });
+      try {
+        const data = await axios.get("/api/menu");
+        console.log(data);
+        const menuArray = data.data.items;
+        menu = menuArray.map((menuItem) => {
+          return { ...menuItem, quantity: 1 };
+        });
+      } catch (ex) {
+        if (
+          ex &&
+          ex !== undefined &&
+          ex.toString &&
+          ex.toString !== undefined
+        ) {
+          // print the general exception
+          console.log(ex.toString());
+        }
+        if (
+          ex.response &&
+          ex.response !== undefined &&
+          ex.response.data &&
+          ex.response.data !== undefined
+        ) {
+          // print the exception message from axios response
+          console.log(ex.response.data);
+        }
+      }
 
       setMenuItems(menu);
     };
