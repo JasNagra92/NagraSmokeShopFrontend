@@ -51,7 +51,12 @@ const Cart = () => {
 
   // disable checkout button until all fields are flled in
   useEffect(() => {
-    if (customerInfo.email && customerInfo.name && customerInfo.phoneNumber & startDate) {
+    if (
+      customerInfo.email &&
+      customerInfo.name &&
+      customerInfo.phoneNumber &&
+      startDate
+    ) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
@@ -98,6 +103,7 @@ const Cart = () => {
         console.log(error);
       }
     };
+
     if (cart.length > 0) {
       showOrder();
     }
