@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { toast } from 'react-toastify'
-import axios from "axios";
+import { toast } from "react-toastify";
+import axios from "../services/axios";
 import { useAuthContext } from "./useAuthContext";
 
 const useLogin = () => {
@@ -9,8 +9,8 @@ const useLogin = () => {
   const { dispatch } = useAuthContext();
 
   const loggedIn = () => {
-    toast.success("Logged In Successfully!")
-  }
+    toast.success("Logged In Successfully!");
+  };
 
   const login = async (email, password) => {
     const response = await axios.post("/login", { email, password });
@@ -18,7 +18,7 @@ const useLogin = () => {
     if (response.data.error) {
       setLoading(false);
       setError(response.data.error);
-      return
+      return;
     }
     // set user in localStorage
     localStorage.setItem("user", JSON.stringify(response.data));
@@ -28,7 +28,7 @@ const useLogin = () => {
 
     setLoading(false);
 
-    loggedIn()
+    loggedIn();
   };
 
   return { login, isloading, error };

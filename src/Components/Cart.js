@@ -5,15 +5,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../Styles/Cart.module.css";
-import axios from "axios";
+import axios from "../services/axios";
 import CustomerInfoForm from "./CustomerInfoForm";
 import smPork from "../Images/Pork-Butt-small.jpg";
 import smBrisket from "../Images/brisket-small.jpeg";
 const qs = require("qs");
-
-// react_app_baseURL is env variable provided by heroku on hosting
-axios.defaults.baseURL =
-  process.env.REACT_APP_baseURL || "http://localhost:4000";
 
 const Cart = () => {
   const [cart, setCart] = useContext(CartContext);
