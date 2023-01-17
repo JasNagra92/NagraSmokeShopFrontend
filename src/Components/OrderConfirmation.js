@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "../Styles/OrderConfirmation.module.css";
-import { format } from "date-fns";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import styles from '../Styles/OrderConfirmation.module.css';
+import { format } from 'date-fns';
 
 const OrderConfirmation = () => {
   const [confirmedOrder, setConfirmedOrder] = useState();
@@ -10,12 +10,12 @@ const OrderConfirmation = () => {
   // successfull redirect, that id is then used to fetch the corresponding
   // order from mongoDB and then display it on the thank you page
   const queryParams = new URLSearchParams(window.location.search);
-  const id = queryParams.get("id");
+  const id = queryParams.get('id');
 
   useEffect(() => {
     const setOrder = async () => {
       try {
-        const response = await axios.get("/checkout-session?id=" + id);
+        const response = await axios.get('/checkout-session?id=' + id);
         setConfirmedOrder(response.data);
       } catch (error) {
         console.log(error);
@@ -32,30 +32,21 @@ const OrderConfirmation = () => {
             <div className={styles.thankYou}>
               <h3>Thank you for your order {confirmedOrder.name}</h3>
             </div>
-            <div className={styles.checkInbox}>
-              check your inbox/junk folder for confirmation email 
-            </div>
-            <div className={styles.orderDetails}>
-              Order Number - {confirmedOrder.orderNumber}
-            </div>
+            <div className={styles.checkInbox}>check your inbox/junk folder for confirmation email</div>
+            <div className={styles.orderDetails}>Order Number - {confirmedOrder.orderNumber}</div>
 
             <div className={styles.total}>
               <h5>Order Total</h5>
               <p>
-                {(confirmedOrder.amount_total / 100).toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "CAD",
+                {(confirmedOrder.amount_total / 100).toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'CAD'
                 })}
               </p>
             </div>
             <div className={styles.date}>
               <h5>Order Date</h5>
-              <p>
-                {format(
-                  new Date(`${confirmedOrder.OrderDate}`),
-                  "MM/dd/yyyy H:mm"
-                )}
-              </p>
+              <p>{format(new Date(`${confirmedOrder.OrderDate}`), 'MM/dd/yyyy H:mm')}</p>
             </div>
             <div className={styles.method}>
               <h5>Payment Method</h5>
@@ -68,12 +59,7 @@ const OrderConfirmation = () => {
             </div>
             <div className={styles.pdate}>
               <h5>Pick up Date</h5>
-              <p>
-                {format(
-                  new Date(`${confirmedOrder.pickupDate}`),
-                  "MM/dd/yyyy H:mm"
-                )}
-              </p>
+              <p>{format(new Date(`${confirmedOrder.pickupDate}`), 'MM/dd/yyyy H:mm')}</p>
             </div>
             <div className={styles.delivery}>
               <h5>Delivery Option</h5>

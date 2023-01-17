@@ -1,30 +1,30 @@
-import React, { useContext} from "react";
-import { CartContext } from "./CartContext";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { Puff } from "react-loader-spinner";
-import { toast } from "react-toastify";
-import brisket from "../Images/brisket.jpg";
-import pork from "../Images/Pork-Butt.jpg";
-import smPork from '../Images/Pork-Butt-small.jpg'
-import smBrisket from '../Images/brisket-small.jpeg'
-import styles from "../Styles/Menu.module.css";
-import MenuItem from "./MenuItem";
-import SeasoningsTable from "./SeasoningsTable";
+import React, { useContext } from 'react';
+import { CartContext } from './CartContext';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { Puff } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+import brisket from '../Images/brisket.jpg';
+import pork from '../Images/Pork-Butt.jpg';
+import smPork from '../Images/Pork-Butt-small.jpg';
+import smBrisket from '../Images/brisket-small.jpeg';
+import styles from '../Styles/Menu.module.css';
+import MenuItem from './MenuItem';
+import SeasoningsTable from './SeasoningsTable';
 
 const Menu = ({ menuItems }) => {
   const [cart, setCart] = useContext(CartContext);
   const { user } = useAuthContext();
 
   const itemAdded = () => {
-    toast.success("Item Added to Cart!", {
-      position: toast.POSITION.TOP_CENTER,
+    toast.success('Item Added to Cart!', {
+      position: toast.POSITION.TOP_CENTER
     });
   };
   const itemNotAdded = () => {
-    toast.error("Not enough Stock to add item!");
+    toast.error('Not enough Stock to add item!');
   };
   const pleaseLogin = () => {
-    toast.error("please login or signup to make purchase");
+    toast.error('please login or signup to make purchase');
   };
 
   // on click will set the menu items in cart but only their _ids,
@@ -35,7 +35,7 @@ const Menu = ({ menuItems }) => {
       return;
     }
 
-    let foundProduct = cart.find((cartItem) => cartItem._id === item._id);
+    const foundProduct = cart.find((cartItem) => cartItem._id === item._id);
     if (foundProduct && foundProduct.quantity >= item.stock) {
       itemNotAdded();
     } else if (foundProduct) {
@@ -45,7 +45,7 @@ const Menu = ({ menuItems }) => {
           cartItem._id === item._id
             ? {
                 ...cartItem,
-                quantity: (cartItem.quantity += 1),
+                quantity: (cartItem.quantity += 1)
               }
             : cartItem
         )

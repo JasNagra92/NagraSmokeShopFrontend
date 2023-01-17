@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
-import axios from "../services/axios";
-import { useAuthContext } from "./useAuthContext";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import axios from '../services/axios';
+import { useAuthContext } from './useAuthContext';
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
@@ -9,25 +9,19 @@ export const useSignup = () => {
   const { dispatch } = useAuthContext();
 
   const signedUp = () => {
-    toast.success("Signed Up Successfully! Check email for Confirmation");
+    toast.success('Signed Up Successfully! Check email for Confirmation');
   };
 
-  const signup = async (
-    email,
-    password,
-    passwordConfirm,
-    name,
-    phoneNumber
-  ) => {
+  const signup = async (email, password, passwordConfirm, name, phoneNumber) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await axios.post("/signup", {
+    const response = await axios.post('/signup', {
       email,
       password,
       passwordConfirm,
       name,
-      phoneNumber,
+      phoneNumber
     });
     if (response.data.error) {
       setIsLoading(false);
@@ -35,10 +29,10 @@ export const useSignup = () => {
       return;
     }
     // store user/jwt in local storage
-    localStorage.setItem("user", JSON.stringify(response.data));
+    localStorage.setItem('user', JSON.stringify(response.data));
 
     // update authcontext
-    dispatch({ type: "LOGIN", payload: response.data });
+    dispatch({ type: 'LOGIN', payload: response.data });
 
     setIsLoading(false);
 

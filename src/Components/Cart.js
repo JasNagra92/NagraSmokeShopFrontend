@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import CartItem from "../Components/CartItem";
-import { CartContext } from "./CartContext";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { toast } from "react-toastify";
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "../Styles/Cart.module.css";
-import axios from "../services/axios";
-import CustomerInfoForm from "./CustomerInfoForm";
-import smPork from "../Images/Pork-Butt-small.jpg";
-import smBrisket from "../Images/brisket-small.jpeg";
-const qs = require("qs");
+import React, { useState, useContext, useEffect } from 'react';
+import CartItem from '../Components/CartItem';
+import { CartContext } from './CartContext';
+import { useAuthContext } from '../hooks/useAuthContext';
+import { toast } from 'react-toastify';
+import 'react-datepicker/dist/react-datepicker.css';
+import styles from '../Styles/Cart.module.css';
+import axios from '../services/axios';
+import CustomerInfoForm from './CustomerInfoForm';
+import smPork from '../Images/Pork-Butt-small.jpg';
+import smBrisket from '../Images/brisket-small.jpeg';
+const qs = require('qs');
 
 const Cart = () => {
   const [cart, setCart] = useContext(CartContext);
@@ -18,13 +18,13 @@ const Cart = () => {
   const [startDate, setStartDate] = useState(null);
   const { user } = useAuthContext();
   const [customerInfo, setCustomerInfo] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
+    name: '',
+    email: '',
+    phoneNumber: ''
   });
 
   const errorToast = () => {
-    toast.error("not enough stock to complete order :(");
+    toast.error('not enough stock to complete order :(');
   };
 
   // payload will be used in fetch request to send order information to server
@@ -33,7 +33,7 @@ const Cart = () => {
   const handleInput = (e) => {
     setCustomerInfo({
       ...customerInfo,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
@@ -41,18 +41,13 @@ const Cart = () => {
     setCustomerInfo({
       name: `${user.foundUser.name}`,
       email: `${user.foundUser.email}`,
-      phoneNumber: `${user.foundUser.phoneNumber}`,
+      phoneNumber: `${user.foundUser.phoneNumber}`
     });
   };
 
   // disable checkout button until all fields are flled in
   useEffect(() => {
-    if (
-      customerInfo.email &&
-      customerInfo.name &&
-      customerInfo.phoneNumber &&
-      startDate
-    ) {
+    if (customerInfo.email && customerInfo.name && customerInfo.phoneNumber && startDate) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
@@ -62,7 +57,7 @@ const Cart = () => {
   // send cart information along with customer info to server to create stripe checkout session
   // this will redirect the user to the url sent in the response from the server
   const handleSubmit = async () => {
-    const response = await axios.post("/create-checkout-session", { payload });
+    const response = await axios.post('/create-checkout-session', { payload });
     const data = response.data;
     if (data.error) {
       errorToast();
@@ -73,14 +68,8 @@ const Cart = () => {
   };
 
   const handleRemove = (item) => {
-    setOrder(
-      order.filter((orderItem) =>
-        orderItem._id === item._id ? false : orderItem
-      )
-    );
-    setCart(
-      cart.filter((cartItem) => (cartItem._id === item._id ? false : cartItem))
-    );
+    setOrder(order.filter((orderItem) => (orderItem._id === item._id ? false : orderItem)));
+    setCart(cart.filter((cartItem) => (cartItem._id === item._id ? false : cartItem)));
   };
 
   // on component mount, request to server with cart item _ids will fetch the prices from server
@@ -88,11 +77,11 @@ const Cart = () => {
   useEffect(() => {
     const showOrder = async () => {
       try {
-        const response = await axios.get("/api/cart", {
-          params: { cart: cart },
+        const response = await axios.get('/api/cart', {
+          params: { cart },
           paramsSerializer: (params) => {
             return qs.stringify(params);
-          },
+          }
         });
         setOrder(response.data);
       } catch (error) {
@@ -108,7 +97,7 @@ const Cart = () => {
   return (
     <div>
       {cart.length === 0 ? (
-        <div style={{ height: "100vh", color: "white", textAlign: "center" }}>
+        <div style={{ height: '100vh', color: 'white', textAlign: 'center' }}>
           <p>Cart is empty!</p>
         </div>
       ) : (
@@ -130,9 +119,9 @@ const Cart = () => {
               <div className={styles.itemAndTotalContainer}>
                 <div>
                   {order.map((item) => (
-                    <div className={styles.menuItem}>
+                    <div className={styles.menuItem} key={item.id}>
                       <CartItem
-                        image={item.name === "Brisket" ? smBrisket : smPork}
+                        image={item.name === 'Brisket' ? smBrisket : smPork}
                         key={item._id}
                         itemProps={item}
                         handleRemoveProps={handleRemove}
